@@ -1,8 +1,10 @@
+
 import Link from 'next/link';
 import React from 'react';
 import navImg from '../../public/assets/Wanderlast.png'
 import Image from 'next/image';
 const Navbar = () => {
+    
     return (
         <nav className='flex justify-between items-center p-8 border-b'>
             <ul className='flex items-center gap-2.5'>
@@ -10,13 +12,13 @@ const Navbar = () => {
                     <Link href={'/'}>Home</Link>
                 </li>
                 <li>
-                    <Link href={'/'}>Destinations</Link>
+                    <Link href={'/destination'}>Destinations</Link>
                 </li>
                 <li>
                     <Link href={'/'}>My Bookings</Link>
                 </li>
                 <li>
-                    <Link href={'/'}>Admin</Link>
+                    <Link href={'/add-destination'}>Add Destination</Link>
                 </li>
             </ul>
             <div>
