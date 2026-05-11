@@ -17,7 +17,7 @@ const DestinationDetails = async ({ params }) => {
             <div className="flex justify-between items-center">
                 <Link href={'/destination'}> <h1 className='text-lg md:text-xl text-gray-500 font-medium flex  gap-1.5'><ArrowLeft /> Back To Destinations</h1></Link>
                 <div className='flex gap-3'>
-                   <EditModel/>
+                   <EditModel details={details}/>
                     <Button size='sm' variant='danger-soft'>Cancel</Button>
                 </div>
             </div>
