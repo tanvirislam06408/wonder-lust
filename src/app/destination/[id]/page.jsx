@@ -1,3 +1,4 @@
+import { DeleteModal } from '@/components/DeleteModal';
 import EditModel from '@/components/EditModel';
 import { getDataById } from '@/lib/data.';
 import { Button } from '@heroui/react';
@@ -18,7 +19,7 @@ const DestinationDetails = async ({ params }) => {
                 <Link href={'/destination'}> <h1 className='text-lg md:text-xl text-gray-500 font-medium flex  gap-1.5'><ArrowLeft /> Back To Destinations</h1></Link>
                 <div className='flex gap-3'>
                    <EditModel details={details}/>
-                    <Button size='sm' variant='danger-soft'>Cancel</Button>
+                    <DeleteModal details={details}/>
                 </div>
             </div>
             <div className="w-full my-5">
