@@ -21,11 +21,11 @@ const Navbar = () => {
                     <Link href={'/add-destination'}>Add Destination</Link>
                 </li>
             </ul>
-            <div>
+            <div className='md:flex hidden'>
                 <Image src={navImg} alt='navLogo' height={200} width={200} />
             </div>
 
-            <ul className='flex items-center gap-2.5'>
+            <ul className='md:flex items-center gap-2.5 hidden'>
                 <li>
                     <Link href={'/'}>Profile</Link>
                 </li>
