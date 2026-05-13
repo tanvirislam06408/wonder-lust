@@ -1,10 +1,14 @@
-
+'use client'
 import Link from 'next/link';
 import React from 'react';
 import navImg from '../../public/assets/Wanderlast.png'
 import Image from 'next/image';
+import { authClient } from '@/lib/auth.client';
+import { Button } from '@heroui/react';
 const Navbar = () => {
-    
+    const { data } = authClient.useSession();
+    const user = data?.user
+
     return (
         <nav className='flex justify-between items-center p-8 border-b'>
             <ul className='flex items-center gap-2.5'>
@@ -29,12 +33,15 @@ const Navbar = () => {
                 <li>
                     <Link href={'/'}>Profile</Link>
                 </li>
-                <li>
-                    <Link href={'/'}>Login</Link>
-                </li>
-                <li>
-                    <Link href={'/'}>SignUp</Link>
-                </li>
+                {
+                    user ?
+                        <Button variant='danger-soft' onClick={async()=>await authClient.signOut()}>SignOut</Button> : <><li>
+                            <Link href={'/login'}>Login</Link>
+                        </li>
+                            <li>
+                                <Link href={'/signup'}>SignUp</Link>
+                            </li></>
+                }
             </ul>
         </nav>
     );
