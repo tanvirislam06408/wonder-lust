@@ -1,6 +1,32 @@
+   'use server'
+
+import { revalidatePath } from "next/cache";
+
 export const getDataById=async(id)=>{
     const res=await fetch(`http://localhost:5000/destinations/${id}`)
     const data=await res.json();
     return data;
     
+}
+
+export const getAllBookings=async(id)=>{
+    const res=await fetch(`http://localhost:5000/book-destination/${id}`)
+    const data=await res.json();
+    return data;
+    
+}
+
+export const deleteBooking=async(id)=>{
+ 
+    const res=await fetch(`http://localhost:5000/book-destination/${id}`,{
+        method:'DELETE',
+        headers:{
+            'content-type':'application/json'
+        }
+    })
+    const data=await res.json();
+    if(data.deletedCount>0){
+        revalidatePath('/my-bookings')
+    }
+    return data;
 }

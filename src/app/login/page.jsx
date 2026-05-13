@@ -3,27 +3,33 @@ import SocialLogin from "@/components/shared/SocialLogin";
 import { authClient } from "@/lib/auth.client";
 import {Check} from "@gravity-ui/icons";
 import {Button, Description, FieldError, Form, Input, Label, Separator, TextField} from "@heroui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 function LoginPage() {
+    const router = useRouter();
 
-const handleLogin=async(e)=>{
-    e.preventDefault();
-    const formData=new FormData(e.currentTarget);
-    const {password,email,imageUrl,name}=Object.fromEntries(formData.entries());
-    
-    
-    const { data, error } = await authClient.signIn.email({
-    name,
-    email,
-    password,
-    imageUrl,
-    callbackURL: "/",
-});
-    if(data.user){
-        redirect('/')
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const { password, email, imageUrl, name } = Object.fromEntries(formData.entries());
+
+
+        const { data, error } = await authClient.signIn.email({
+            email,
+            password,
+            callbackURL: "/",
+        });
+
+        if (error) {
+            console.error("Login error:", error);
+            alert(error.message || "Failed to login");
+            return;
+        }
+
+        if (data?.user) {
+            router.push('/');
+        }
+
     }
-    
-}
     return (
         
            <div className="container mx-auto flex justify-center min-h-[60vh] max-w-96 items-center flex-col space-y-3.5 h-full ">

@@ -8,6 +8,8 @@ import { Button } from '@heroui/react';
 const Navbar = () => {
     const { data } = authClient.useSession();
     const user = data?.user
+    
+    
 
     return (
         <nav className='flex justify-between items-center p-8 border-b'>
@@ -19,7 +21,7 @@ const Navbar = () => {
                     <Link href={'/destination'}>Destinations</Link>
                 </li>
                 <li>
-                    <Link href={'/'}>My Bookings</Link>
+                    <Link href={'/my-bookings'}>My Bookings</Link>
                 </li>
                 <li>
                     <Link href={'/add-destination'}>Add Destination</Link>

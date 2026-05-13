@@ -2,28 +2,34 @@
 import { authClient } from "@/lib/auth.client";
 import {Check} from "@gravity-ui/icons";
 import {Button, Description, FieldError, Form, Input, Label, Separator, TextField} from "@heroui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import SocialLogin from "./SocialLogin";
 function SignUpPgae() {
+    const router = useRouter();
 
-const handleSignUp=async(e)=>{
-    e.preventDefault();
-    const formData=new FormData(e.currentTarget);
-    const {password,email,imageUrl,name}=Object.fromEntries(formData.entries());
-   
-    
-    const { data, error } = await authClient.signUp.email({
-    name,
-    email,
-    password,
-    imageUrl,
-    callbackURL: "/",
-});
-    if(data.user){
-        redirect('/')
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const { password, email, imageUrl, name } = Object.fromEntries(formData.entries());
+
+        const { data, error } = await authClient.signUp.email({
+            name,
+            email,
+            password,
+            imageUrl,
+            callbackURL: "/",
+        });
+        
+        if (error) {
+            console.error("Sign up error:", error);
+            alert(error.message || "Failed to sign up");
+            return;
+        }
+
+        if (data?.user) {
+            router.push('/');
+        }
     }
-    
-}
     return (
         
            <div className="container mx-auto flex justify-center min-h-[60vh] max-w-96 items-center flex-col space-y-3.5 h-full ">
