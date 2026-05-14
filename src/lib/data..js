@@ -1,9 +1,25 @@
    'use server'
 
 import { revalidatePath } from "next/cache";
+import { auth } from "./auth";
+import { headers } from "next/headers";
+
+
+
+
 
 export const getDataById=async(id)=>{
-    const res=await fetch(`http://localhost:5000/destinations/${id}`)
+
+const {token}=await auth.api.getToken({
+    headers: await headers()
+})
+
+
+    const res=await fetch(`http://localhost:5000/destinations/${id}`,{
+        headers:{
+            authorization:`Bearer ${token}`
+        }
+    })
     const data=await res.json();
     return data;
     
