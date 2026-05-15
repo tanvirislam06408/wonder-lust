@@ -26,7 +26,15 @@ const {token}=await auth.api.getToken({
 }
 
 export const getAllBookings=async(id)=>{
-    const res=await fetch(`http://localhost:5000/book-destination/${id}`)
+    const {token}=await auth.api.getToken({
+        headers:await headers()
+    });
+    
+    const res=await fetch(`http://localhost:5000/book-destination/${id}`,{
+        headers:{
+            authorization: `Bearer ${token}`
+        }
+    })
     const data=await res.json();
     return data;
     

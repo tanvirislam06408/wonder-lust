@@ -11,11 +11,10 @@ const Booking = ({ details }) => {
     const user = session?.user;
 
     if (isPending) return <Button isLoading className={'text-cyan-500'} variant='outline'>Loading...</Button>;
-    
+
     if (!user) {
         return <Button as={Link} href="/login" className={'text-cyan-500'} variant='outline'>Login to Book</Button>;
     }
-
     const handleBook = async () => {
         const bookingData = {
             userId: user.id,
@@ -24,23 +23,26 @@ const Booking = ({ details }) => {
             userImage: user.image,
             destinationName,
             image,
-            bookedId :_id,
+            bookedId: _id,
             country,
             duration,
             price,
             description
         }
         try {
+            const {data:tokenData} = await authClient.token();
+            
             const res = await fetch('http://localhost:5000/book-destination', {
                 method: 'POST',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
+                    authorization: `Bearer ${tokenData?.token}`
                 },
                 body: JSON.stringify(bookingData)
             })
             const data = await res.json();
             console.log(data);
-            alert("Booking successful!");
+            // alert("Booking successful!");
         } catch (err) {
             console.error("Booking error:", err);
             alert("Failed to book destination.");
